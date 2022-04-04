@@ -1,5 +1,221 @@
 # HJ16 购物单
 
+# n, m = map(int,input().split())
+# primary, annex = {}, {}
+# for i in range(1,m+1):
+#     x, y, z = map(int, input().split())
+#     if z==0:#主件
+#         primary[i] = [x, y]
+#     else:#附件
+#         if z in annex:#第二个附件
+#             annex[z].append([x, y])
+#         else:#第一个附件
+#             annex[z] = [[x,y]]
+# m = len(primary)#主件个数转化为物品个数
+# dp = [[0]*(n+1) for _ in range(m+1)]
+# w, v= [[]], [[]]
+# for key in primary:
+#     w_temp, v_temp = [], []
+#     w_temp.append(primary[key][0])#1、主件
+#     v_temp.append(primary[key][0]*primary[key][1])
+#     if key in annex:#存在主件
+#         w_temp.append(w_temp[0]+annex[key][0][0])#2、主件+附件1
+#         v_temp.append(v_temp[0]+annex[key][0][0]*annex[key][0][1])
+#         if len(annex[key])>1:#存在两主件
+#             w_temp.append(w_temp[0]+annex[key][1][0])#3、主件+附件2
+#             v_temp.append(v_temp[0]+annex[key][1][0]*annex[key][1][1])
+#             w_temp.append(w_temp[0]+annex[key][0][0]+annex[key][1][0])#3、主件+附件1+附件2
+#             v_temp.append(v_temp[0]+annex[key][0][0]*annex[key][0][1]+annex[key][1][0]*annex[key][1][1])
+#     w.append(w_temp)
+#     v.append(v_temp)
+# for i in range(1,m+1):
+#     for j in range(10,n+1,10):#物品的价格是10的整数倍
+#         max_i = dp[i-1][j]
+#         for k in range(len(w[i])):
+#             if j-w[i][k]>=0:
+#                 max_i = max(max_i, dp[i-1][j-w[i][k]]+v[i][k])
+#         dp[i][j] = max_i
+# print(dp[m][n])
+
+
+
+
+# while True:
+#     try:
+#         # 金额限制总价，物品数量
+#         total,k = list(map(int,input().split(" ")))
+#         ## 单价
+#         W = {}
+#         ## 单价* 重要程度=价值
+#         V = {}
+#         # 因为价格是10的倍数，为方便运算，价格/10
+#         total = int(total/10)
+#         # 主件个数
+#         main_key = []
+#         # 构造字典
+#         for i in range(1,k+1):
+#             W[i]=[0,0,0]
+#             V[i]=[0,0,0]
+#         for i in range(k):
+#             # 单价，重要程度，类别
+#             v,p,q = list(map(int,input().split(" ")))
+#             if q == 0:
+#                 W[i+1][0] = int(v/10)
+#                 V[i+1][0] = int(v*p/10)
+#                 main_key.append(i+1)
+#             else:
+#                 if W[q][1]==0:
+#                     W[q][1] = int(v/10)
+#                     V[q][1] = int(v*p/10)
+#                 else:
+#                     W[q][2] = int(v/10)
+#                     V[q][2] = int(v*p/10)
+#         W_lst = []
+#         V_lst = []
+#         for key in W.keys():
+#             if key in main_key:
+#                 W_lst.append(W[key])
+#                 V_lst.append(V[key])
+#         m = len(W_lst)
+#         # 构造二维数
+#         dp = [[0]*(total+1) for _ in range(m+1)]
+#         for i in range(1,m+1):
+#             w1 = W_lst[i-1][0]
+#             w2 = W_lst[i-1][1]
+#             w3 = W_lst[i-1][2]
+#             v1 = V_lst[i-1][0]
+#             v2 = V_lst[i-1][1]
+#             v3 = V_lst[i-1][2]
+#             for j in range(total+1):
+#                 # 1. 不放入:
+#                 dp[i][j] =dp[i-1][j]
+#                 # 2. 放入一个主件
+#                 if j-w1>=0:
+#                     dp[i][j] = max(dp[i][j],dp[i-1][j-w1]+v1)
+#                 # 3. 1个主件+附件1
+#                 if j-w1-w2>=0:
+#                     dp[i][j] = max(dp[i][j], dp[i-1][j-w2-w1]+v1+v2)
+#                 # 4. 一个主件+附件2
+#                 if j-w1-w3>=0:
+#                     dp[i][j] =  max(dp[i][j], dp[i-1][j-w3-w1]+v1+v3)
+#                 # 5. 一个主见+附件1+附件2
+#                 if j-w1-w2-w3 >=0:
+#                     dp[i][j] =  max(dp[i][j], dp[i-1][j-w3-w2-w1]+v1+v2+v3)
+#         print(int(dp[m][total]*10))
+#     except:
+#         break
+
+
+
+# 在不超过 N 元（可以等于 N 元）的前提下，使物品的价格与重要度的乘积的总和最大
+# 0-1背包问题变种，买归类为附件的物品，必须先买该附件所属的主件
+# 也就是说，主件的个数才是总的物品的个数
+# 考虑每个物品时要考虑每种可能出现的情况：
+#     1、主件，2、主件+附件1，3、主件+附件2，4、主件+附件1+附件2
+# 求解各种情况下的子问题,自底向上求解即可
+
+line = str(input())
+N = int(line.split(' ')[0])  # 总金额
+m = int(line.split(' ')[1])  # 希望购买的个数
+id2info = {}
+other2info = {}
+for i in range(m):
+    line = str(input())
+    id = i+1
+    v = int(line.split(' ')[0])  # 价格（10的倍数）
+    p = int(line.split(' ')[1])  # 重要度
+    q = int(line.split(' ')[2])  # 主0附id件
+    if q == 0:
+        # 主键
+        id2info[id] = [v,p]
+    else:
+        # q是主键id
+        if q in other2info:
+            # 第二个附件
+            other2info[q].append([v,p])
+        else:
+            # 第一个附件
+            other2info[q] = [[v,p]]
+
+# 子问题：求dp（i，j），即最大价格为j*10，可选主件为x1,...xi（前i个）时的最大价值
+i_num = len(id2info)
+j_num = N // 10
+w, v= [[]], [[]]  # 这里预留了一个空list
+# print(other2info)
+# 记录四种情况下的价格与价值
+for key in id2info:
+    w_temp, v_temp = [], []
+    #1、主件
+    w_temp.append(id2info[key][0])
+    v_temp.append(id2info[key][0]*id2info[key][1])
+    #存在附件
+    if key in other2info:
+        #2、主件+附件1
+        w_temp.append(w_temp[0]+other2info[key][0][0])
+        v_temp.append(v_temp[0]+other2info[key][0][0]*other2info[key][0][1])
+        #存在两主件
+        if len(other2info[key])>1:
+            #3、主件+附件2
+            w_temp.append(w_temp[0]+other2info[key][1][0])
+            v_temp.append(v_temp[0]+other2info[key][1][0]*other2info[key][1][1])
+            w_temp.append(w_temp[0]+other2info[key][0][0]+other2info[key][1][0])
+            #4、主件+附件1+附件2
+            v_temp.append(v_temp[0]+other2info[key][0][0]*other2info[key][0][1]+other2info[key][1][0]*other2info[key][1][1])
+    w.append(w_temp)
+    v.append(v_temp)
+# dp = [[0]*(j_num+1)]*(i_num+1)  # 会引发浅拷贝的问题，i_num+1个列表的内存会指向同一块
+# 因此无论修改哪个[0]*(j_num+1)]，其余的i_num个也会跟着改变
+dp = [[0]*(j_num+1) for _ in range(i_num+1)]
+# dp[i][j] = max(物品不放入背包，主件，主件+附件1，主件+附件2，主件+附件1+附件2)
+for i in range(1, i_num+1):
+    for j in range(1, j_num+1):
+        pre_max = dp[i-1][j]
+        for x in range(len(w[i])):
+            if j*10 - w[i][x] >= 0:
+                pre_max = max(pre_max, dp[i-1][(j*10 - w[i][x])//10]+v[i][x])
+        dp[i][j] = pre_max
+print(dp[i_num][j_num])
+
+
+
+# from collections import defaultdict
+#
+# # 处理输入
+# n, m = map(int, input().split())
+# n //= 10  # 价格总为 10 的倍数，优化空间复杂度
+# prices = defaultdict(lambda: [0, 0, 0])  # 主从物品的价格
+# values = defaultdict(lambda: [0, 0, 0])  # 主从物品的价值
+#
+# for i in range(m):      # i 代表第 i + 1 个物品
+#     v, p, q = map(int, input().split())
+#     v //= 10            # 价格总为 10 的倍数，优化空间复杂度
+#     if q == 0:          # 追加主物品
+#         prices[i + 1][0] = v
+#         values[i + 1][0] = v * p
+#     elif prices[q][1]:  # 追加从物品
+#         prices[q][2] = v
+#         values[q][2] = v * p
+#     else:
+#         prices[q][1] = v
+#         values[q][1] = v * p
+#
+# # 处理输出
+# dp = [0] * (n + 1)  # 初始化 dp 数组
+#
+# for i, v in prices.items():
+#     for j in range(n, v[0] - 1, -1):
+#         p1, p2, p3 = v
+#         v1, v2, v3 = values[i]
+#         # 处理主从组合的四种情况
+#         dp[j] = max(dp[j], dp[j - p1] + v1)
+#         dp[j] = max(dp[j], dp[j - p1 - p2] + v1 + v2) if j >= p1 + p2 else dp[j]
+#         dp[j] = max(dp[j], dp[j - p1 - p3] + v1 + v3) if j >= p1 + p3 else dp[j]
+#         dp[j] = max(dp[j], dp[j - p1 - p2 - p3] + v1 + v2 + v3) if j >= p1 + p2 + p3 else dp[j]
+#
+# print(dp[n] * 10)
+
+
+
 # 中等 通过率：21.21 % 时间限制：1秒空间限制：32M
 # 知识点
 # 动态规划

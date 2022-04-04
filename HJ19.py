@@ -1,5 +1,77 @@
 # HJ19 简单错误记录
 
+l = []
+ll = []
+while 1:
+    try:
+        s = input().split('\\')[-1]
+        data = s.split(' ')[0][-16:] + ' ' + s.split(' ')[1]
+        if data not in l:
+            l.append(data)
+            ll.append(1)
+        else:
+            ll[l.index(data)] += 1
+    except:
+        break
+
+for i in range(len(l[-8:])):
+    print(l[-8:][i], ll[-8:][i])
+
+
+
+
+
+import sys
+error_map = {}
+error_list = []
+for i in sys.stdin:
+    path, line_no = i.strip().split(' ')
+    filename = path.split('\\')[-1]
+    if len(filename) > 16:
+        filename = filename[-16:]
+    error_key = filename + ' ' + line_no
+    if error_key in error_map.keys():
+        error_map[error_key] = error_map[error_key] + 1
+    else:
+        error_list.append(error_key)
+        error_map[error_key] = 1
+for error_key in error_list[-8:]:
+    print(error_key, error_map.get(error_key))
+
+
+
+# lst=[]#用于数组记录
+# lst1=[]#最后上数字的数组
+# #先把[File,N]以一个单元的形式都加进lst，不考虑冲不冲股份， 把他看成一个整体，后面有count函数帮我们计算个数
+# while True:
+#     try:
+#         PATH,N=map(str,input().split(" "))
+#         File=PATH.split("\\")[-1]#必须用两个\测试出来的
+#         if len(File)>16:#解决大于16位，就取后16位的情况。
+#             File=File[-16:]
+#         lst.append([File,N])
+#     except:
+#         break
+# #print(lst)
+# #去除重复，帮助我们用作索引，这种方法还有个好处，那就是由于lst是顺序进入的，所以索引也是顺序的
+# lsttemp=[]
+# for [i,j] in lst:
+#     if [i,j] in lsttemp:
+#         continue
+#     else:
+#         lsttemp.append([i,j])
+#
+# #通过索引再把对应数字加上，count函数就是该题的关键，也是不先做处理直接添加进lst的原因
+# for i,j in lsttemp:
+#     lst1.append([i,j,lst.count([i,j])])#加上对应数字
+#
+# for [i,j,t] in lst1[-8:]:#输出倒数8个
+#     print(" ".join([i,j,str(t)]))#最后用join函数输出
+#print(lst1)
+
+
+
+
 # 较难  通过率：20.88%  时间限制：1秒  空间限制：32M
 # 知识点   字符串   哈希
 

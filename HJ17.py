@@ -1,5 +1,74 @@
 # HJ17 坐标移动
 
+
+import sys
+import re
+x,y=0,0
+cmd_list = sys.stdin.readline().strip().split(';')
+fun={
+    'A':lambda a,b,p:(a-p,b),
+    'D':lambda a,b,p:(a+p,b),
+    'W':lambda a,b,p:(a,b+p),
+    'S':lambda a,b,p:(a,b-p)
+}
+for cmd in cmd_list:
+    if re.search(r'^[A|S|W|D]\d\d?$', cmd) and len(cmd)<=3:
+        x,y=fun[cmd[0]](x,y,int(cmd[1:]))
+print(f'{x},{y}')
+
+# s = input().split(';')
+# x = y = 0
+# for i in s:
+#     if not i: continue
+#     try:
+#         if i[0] == 'A':
+#             x -= int(i[1:])
+#         if i[0] == 'D':
+#             x += int(i[1:])
+#         if i[0] == 'S':
+#             y -= int(i[1:])
+#         if i[0] == 'W':
+#             y += int(i[1:])
+#     except:
+#         continue
+# print('%d,%d' % (x, y))
+
+
+# import sys
+#
+#
+# def valid(s):
+#     check1 = False
+#     check2 = True
+#     if not s:  # 判断是否为空
+#         return check1
+#     if s[0] in ["A", "S", "D", "W"]:  # 判断方向信息是否合法
+#         check1 = True
+#     for i in range(1, len(s)):  # 判断剩余位是否为数字
+#         if ord(s[i]) < ord('0') or ord(s[i]) > ord('9'):
+#             check2 = False
+#
+#     return check1 and check2
+#
+#
+# for line in sys.stdin:
+#     ops = line.split(';')
+#
+#     x = y = 0
+#     for op in ops:
+#         if not valid(op):  # 只有在合法情况下才可以对坐标x，y进行操作
+#             continue
+#         elif op[0] == 'A':
+#             x -= int(op[1:])
+#         elif op[0] == 'D':
+#             x += int(op[1:])
+#         elif op[0] == 'W':
+#             y += int(op[1:])
+#         elif op[0] == 'S':
+#             y -= int(op[1:])
+#
+#     print("%d,%d" % (x, y))  # 输出最终的坐标结果
+
 # 中等  通过率：24.79%  时间限制：1秒  空间限制：32M
 # 知识点
 # 字符串

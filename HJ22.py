@@ -1,5 +1,26 @@
 # HJ22 汽水瓶
 
+# 递归
+def change(num):
+    ch = num // 3  # 可换的瓶子
+    a = num // 3 + num % 3  # 换完后的空瓶
+    if a < 2:
+        ch += 0
+    elif a == 2:
+        ch += 1
+    else:
+        ch += change(a)
+    return int(ch)
+
+
+while True:
+        n = int(input())
+        if n == 0:
+            break
+        print(change(n))
+
+
+
 
 # 简单  通过率：28.20%  时间限制：1秒  空间限制：32M
 # 知识点 数学 模拟

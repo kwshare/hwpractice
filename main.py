@@ -43,6 +43,3 @@ if __name__ == '__main__':
     mkdir(path)  # 调用函数
     for i in range(108, 150):
         txt(str(i))
-
-
-

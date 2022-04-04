@@ -1,6 +1,24 @@
 # HJ23 删除字符串中出现次数最少的字符
 
 
+
+
+
+s = input()
+dic = {}
+for i in s:
+    if i in dic:
+        dic[i] += 1
+    else:
+        dic[i] = 1
+MIN = min(dic.values())
+for i in s:
+    if dic[i] == MIN:
+        s = s.replace(i,'')
+# print(dic)
+print(s)
+
+
 # 简单  通过率：33.24%  时间限制：1秒  空间限制：32M
 # 知识点 字符串 哈希
 
