@@ -1,13 +1,16 @@
 # HJ72 百钱买百鸡问题
 
 
-
-
-
-
-
-
-
+while True:
+    try:
+        ppp = input()
+        for a in range(21):  # a 最多买20只 公鸡
+            for b in range(34):  # b 最多买33只 母鸡
+                for c in range(101):  # c 最多买100只小鸡
+                    if a + b + c == 100 and 5 * a + 3 * b + 1 * c / 3 == 100:
+                        print(a, b, c)
+    except:
+        break
 
 '''
 简单  通过率：50.56%  时间限制：1秒  空间限制：32M

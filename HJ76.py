@@ -2,6 +2,13 @@
 
 
 
+while True:
+    try:
+        m = int(input())
+        l = [i for i in range(m*(m-1)+1,m*(m+1)) if i%2 !=0]
+        print('+'.join(map(str,l)))
+    except:
+        break
 
 
 

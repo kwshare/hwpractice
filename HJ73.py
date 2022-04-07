@@ -3,7 +3,16 @@
 
 
 
-
+import datetime
+while True:
+    try:
+        date = input().split()  # 将输入从空格分开 转换成列表
+        year, month, day = int(date[0]), int(date[1]), int(date[2])
+        date = datetime.datetime(year, month, day)
+        which_day = date.strftime('%j').lstrip('0')
+        print(which_day)
+    except:
+        break
 
 
 

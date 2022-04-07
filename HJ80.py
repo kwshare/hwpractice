@@ -1,12 +1,20 @@
 # HJ80 整型数组合并
 
 
+while True:
+    try:
+        first_num = int(input())
+        first_list = list(map(int, input().split(" ")))
+        second_num = int(input())
+        second_list = list(map(int, input().split(" ")))
 
-
-
-
-
-
+        total_list = first_list + second_list
+        total_list = list(set(total_list))
+        total_list.sort()
+        res = ''.join(list(map(str, total_list)))
+        print(res)
+    except EOFError:
+        break
 
 '''
 简单  通过率：34.34%  时间限制：1秒  空间限制：32M
