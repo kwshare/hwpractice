@@ -1,7 +1,80 @@
 # HJ87 密码强度等级
 
 
+while True:
+    try:
+        s = input()
+        sc = 0
+        # 密码长度
+        if len(s) <= 4:
+            sc = sc + 5
+        elif len(s) <= 7:
+            sc = sc + 10
+        else:
+            sc = sc + 25
 
+        # 字母
+        isu = 0
+        isl = 0
+        for i in s:
+            if i.isupper():
+                isu = 1
+                break
+        for i in s:
+            if i.islower():
+                isl = 1
+                break
+        sc = sc + 10 * (isu + isl)
+
+        # 数字
+        shu = '0123456789'
+        count1 = 0
+        for i in s:
+            if i in shu:
+                count1 = count1 + 1
+        if count1 == 1:
+            sc = sc + 10
+        elif count1 > 1:
+            sc = sc + 20
+        else:
+            sc = sc
+
+        # 符号
+        fh = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+        count2 = 0
+        for i in s:
+            if i in fh:
+                count2 = count2 + 1
+        if count2 == 1:
+            sc = sc + 10
+        elif count2 > 1:
+            sc = sc + 25
+        else:
+            sc = sc
+
+        # 奖励
+        if isu + isl == 2 and count1 >= 1 and count2 >= 1:
+            sc = sc + 5
+        elif isu + isl > 1 and count1 >= 1 and count2 >= 1:
+            sc = sc + 3
+        elif isu + isl > 1 and count1 >= 1:
+            sc = sc + 2
+        if sc >= 90:
+            print("VERY_SECURE")
+        elif sc >= 80:
+            print("SECURE")
+        elif sc >= 70:
+            print("VERY_STRONG")
+        elif sc >= 60:
+            print("STRONG")
+        elif sc >= 50:
+            print("AVERAGE")
+        elif sc >= 25:
+            print("WEAK")
+        elif sc >= 0:
+            print("VERY_WEAK")
+    except:
+        break
 
 
 
@@ -10,10 +83,11 @@
 
 '''
 简单  通过率：32.84%  时间限制：1秒  空间限制：32M
-知识点
-字符串
-模拟
+
+知识点 字符串 模拟
+
 warning 校招时部分企业笔试将禁止编程题跳出页面，为提前适应，练习时请使用在线自测，而非本地IDE。
+
 描述
 密码按如下规则进行计分，并根据不同的得分为密码进行安全等级划分。
 
@@ -74,6 +148,7 @@ VERY_WEAK
 
 提示:
 1 <= 字符串的长度<= 300
+
 输入描述：
 输入一个string的密码
 
@@ -83,20 +158,20 @@ VERY_WEAK
 示例1
 输入：
 38$@NoNoN
-复制
+
 输出：
 VERY_SECURE
-复制
+
 说明：
 样例的密码长度大于等于8个字符，得25分；大小写字母都有所以得20分；有两个数字，所以得20分；包含大于1符号，所以得25分；由于该密码包含大小写字母、数字和符号，所以奖励部分得5分，经统计得该密码的密码强度为25+20+20+25+5=95分。
 
 示例2
 输入：
 Jl)M:+
-复制
+
 输出：
 AVERAGE
-复制
+
 说明：
 示例2的密码强度为10+20+0+25+0=55分。
 '''

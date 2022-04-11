@@ -1,5 +1,11 @@
 # HJ106 字符逆序
 
+while True:
+    try:
+        string = str(input().strip())
+        print(string[::-1])
+    except:
+        break
 
 
 # 简单  通过率：45.12%  时间限制：1秒  空间限制：32M

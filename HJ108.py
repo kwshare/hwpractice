@@ -1,5 +1,17 @@
 # HJ108 求最小公倍数
 
+while True:
+    try:
+        a,b=list(map(int, input().split()))
+        if a < b:
+            a,b=b,a
+        for i in range(a,a*b+1,a):
+            if i%b==0:
+                print(i)
+                break
+    except:
+        break
+
 
 
 # 简单  通过率：37.31%  时间限制：1秒  空间限制：32M

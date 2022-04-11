@@ -1,6 +1,15 @@
 # HJ100 等差数列
 
 
+while True:
+    try:
+        x = int(input())
+        s = 0
+        for i in range(x):
+            s += i*3 + 2
+        print(int(s))
+    except:
+        break
 
 
 
