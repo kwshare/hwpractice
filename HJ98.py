@@ -1,8 +1,140 @@
 # HJ98 自动售货系统
 
 
+class GoodSystem():
+    # 商品名称
+    goods_names = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6']
+    # 商品价格
+    goods_price = [2, 3, 4, 5, 8, 6]
+    # 每种商品的数量
+    goods_nums = []
+    # 币额
+    money_flag = [1, 2, 5, 10]
+    # 每种币值的张数
+    money_nums = []
+    # 投币余额
+    balance = 0
+
+    def __init__(self, param1, param2):
+        """
+        初始化商品数量和每种面额的张数
+        """
+        self.goods_nums = list(map(int, param1.split('-')))
+        self.money_nums = list(map(int, param2.split('-')))
+        print('S001:Initialization is successful')
+
+    def put_money(self, money):
+        # 投币
+        if money not in [1, 2, 5, 10]:
+            print('E002:Denomination error')
+        elif money in [5, 10] and money > self.money_nums[0] + self.money_nums[1] * 2:
+            print('E003:Change is not enough, pay fail')
+        elif sum(self.goods_nums) == 0:
+            print('E005:All the goods sold out')
+        else:
+            self.balance += money
+            self.money_nums[self.money_flag.index(money)] += 1
+            print('S002:Pay success,balance=%d' % self.balance)
+
+    def buy_goods(self, name):
+        # 购买商品
+        if name not in self.goods_names:
+            print('E006:Goods does not exist')
+        elif self.goods_nums[self.goods_names.index(name)] == 0:
+            print('E007:The goods sold out')
+        elif self.balance < self.goods_price[self.goods_names.index(name)]:
+            print('E008:Lack of balance')
+        else:
+            self.balance -= self.goods_price[self.goods_names.index(name)]
+            self.goods_nums[self.goods_names.index(name)] -= 1
+            print('S003:Buy success,balance=%d' % self.balance)
+
+    def out_money(self):
+        # 存钱盒总额
+        total_money = self.money_nums[0] + self.money_nums[1] * 2 + self.money_nums[2] * 5 + self.money_nums[3] * 10
+        # 每个币额退的数量
+        out_count = [0, 0, 0, 0]
+        if self.balance == 0:
+            print('E009:Work failure')
+        elif self.balance >= total_money:
+            print('1 yuan coin number=%d' % self.money_nums[0])
+            print('2 yuan coin number=%d' % self.money_nums[1])
+            print('5 yuan coin number=%d' % self.money_nums[2])
+            print('10 yuan coin number=%d' % self.money_nums[3])
+        else:
+            if self.balance >= self.money_nums[3] * 10:
+                self.balance -= self.money_nums[3] * 10
+                self.money_nums[3] = 0
+                out_count[3] = self.money_nums[3]
+            else:
+                self.money_nums[3] -= self.balance // 10
+                out_count[3] = self.balance // 10
+                self.balance -= self.balance // 10 * 10
+            if self.balance >= self.money_nums[2] * 5:
+                self.balance -= self.money_nums[2] * 5
+                self.money_nums[2] = 0
+                out_count[2] = self.money_nums[2]
+            else:
+                self.money_nums[2] -= self.balance // 5
+                out_count[2] = self.balance // 5
+                self.balance -= self.balance // 5 * 5
+            if self.balance >= self.money_nums[1] * 2:
+                self.balance -= self.money_nums[1] * 2
+                self.money_nums[1] = 0
+                out_count[1] = self.money_nums[1]
+            else:
+                self.money_nums[1] -= self.balance // 2
+                out_count[1] = self.balance // 2
+                self.balance -= self.balance // 2 * 2
+                self.money_nums[0] -= self.balance
+            out_count[0] = self.balance
+            self.balance = 0
+            print('1 yuan coin number=%d' % out_count[0])
+            print('2 yuan coin number=%d' % out_count[1])
+            print('5 yuan coin number=%d' % out_count[2])
+            print('10 yuan coin number=%d' % out_count[3])
+
+    def query(self, command):
+        # 查询功能
+        order_list = command.split()
+        if len(order_list) == 2 and order_list[1] == '0':
+            goods_list = [[0 for i in range(3)] for j in range(6)]
+            for i in range(3):
+                goods_list[i][0] = self.goods_names[i]
+                goods_list[i][1] = self.goods_price[i]
+                goods_list[i][2] = self.goods_nums[i]
+            goods_list.sort(key=lambda x: x[2])
+            for i in range(3):
+                print(' '.join(map(str, goods_list[i])))
+        elif len(order_list) == 2 and order_list[1] == '1':
+            print('1 yuan coin number=%d' % self.money_nums[0])
+            print('2 yuan coin number=%d' % self.money_nums[1])
+            print('5 yuan coin number=%d' % self.money_nums[2])
+            print('10 yuan coin number=%d' % self.money_nums[3])
+        else:
+            print('E010:Parameter error')
 
 
+if __name__ == '__main__':
+
+    while True:
+
+        try:
+            command_list = input().split(';')[:-1]
+            for command in command_list:
+                if command[0] == 'r':
+                    goods_system = GoodSystem(command.split()[1], command.split()[2])
+                elif command[0] == 'p':
+                    goods_system.put_money(int(command.split()[1]))
+                elif command[0] == 'b':
+                    goods_system.buy_goods(command.split()[1])
+                elif command[0] == 'q':
+                    goods_system.query(command.split()[0])
+                elif command[0] == 'c':
+                    goods_system.out_money()
+
+        except:
+            break
 
 # 困难  通过率：27.31%  时间限制：1秒  空间限制：32M
 # 知识点 字符串 模拟
