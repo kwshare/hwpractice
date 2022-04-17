@@ -1,25 +1,22 @@
 # HJ97 记负均正
 
 
-while True:
-    try:
-        n=int(input())
-        nums=map(int,input().split())
-        positive=[]
-        negative=0
-        for j in nums:
-            if j > 0 :
-                positive.append(j)
-            elif j < 0 :
-                negative+=1
-            else:
-                pass
-        res=float(0.0)
-        for i in range(len(positive)):
-            res += positive[i]
-        print (negative,round(res/len(positive),1))
-    except:
-        break
+a = int(input())
+b = list(map(int, input().split()))
+num1 = 0
+num2 = 0
+sum = 0
+for i in b:
+    if i < 0:
+        num1 += 1  # 负整数数量
+    elif i > 0:
+        num2 += 1  # 正整数数量
+        sum += i  # 正整数之和
+if num2 != 0:  # 避免分母为0的情况
+    c = round(sum / num2, 1)  # 保留一位小数
+    print(num1, c)
+else:
+    print(num1, '0.0')
 
 '''
 简单  通过率：22.06%  时间限制：1秒  空间限制：32M
