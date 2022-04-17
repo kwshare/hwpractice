@@ -1,5 +1,36 @@
 # HJ93 数组分组
 
+# 深度优先递归
+# 题目要求将数组分为两组，5和3的倍数不能在同一组内，非5或3的倍数随意放在任意一组，要求分配之后两组和相等
+# 根据题意将数组中的5和3分别放到两组中，然后递归穷举所有非5或3的倍数的分组情况
+def dfs(three, five, other):
+    if not other:
+        if sum(three) == sum(five):
+            return True
+        else:
+            return False
+    if dfs(three+other[:1], five, other[1:]):
+        return True
+    if dfs(three, five+other[:1], other[1:]):
+        return True
+
+while True:
+    try:
+        n, nums = int(input()), list(map(int, input().split()))
+        three, five, other = [], [], []
+        for num in nums:
+            if num % 3 == 0:
+                three.append(num)
+            elif num % 5 == 0:
+                five.append(num)
+            else:
+                other.append(num)
+        if dfs(three, five, other):
+            print ('true')
+        else:
+            print ('false')
+    except:
+        break
 
 
 '''

@@ -3,7 +3,39 @@
 
 
 
+from itertools import permutations
 
+card = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+order = range(1,14)
+card_order = dict(zip(card,order))
+opts = ["+", "-", "*", "/"]
+
+def cal(a1,a2,opt):
+    if opt == 0: return a1+a2
+    elif opt == 1: return a1-a2
+    elif opt == 2: return a1*a2
+    elif opt == 3: return a1/a2
+
+def cal24(cards):
+    if "joker" in cards or "JOKER" in cards:
+        print("ERROR")
+        return
+    num_orders = permutations(cards, 4)
+    for nums in num_orders:
+        for i in range(4):
+            a = cal(card_order[nums[0]], card_order[nums[1]], i)
+            for j in range(4):
+                b = cal(a, card_order[nums[2]], j)
+                for k in range(4):
+                    c = cal(b, card_order[nums[3]], k)
+                    if c == 24:
+                        print("%s%s%s%s%s%s%s"%(nums[0],opts[i],nums[1],opts[j],nums[2],opts[k],nums[3]))
+                        return
+    print("NONE")
+    return
+
+cards = input().split()
+cal24(cards)
 
 
 

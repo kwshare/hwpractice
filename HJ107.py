@@ -1,5 +1,33 @@
 # HJ107 求解立方根
 
+import sys
+
+def cube():
+    num = float(sys.stdin.readline().strip())
+    if num == 0:
+        return 0
+    if num > 0:
+        sig = 1
+    else:
+        sig = -1
+    num = abs(num)
+
+    if num > 1:
+        start = 0
+        end = num
+    else:
+        start = num
+        end = 1
+    mid = (end + start) / 2
+    while abs(mid ** 3 - num) > 0.001:
+        if mid ** 3 > num:
+            end = mid
+        else:
+            start = mid
+        mid = (end + start) / 2
+    print(round(sig * mid, 1))
+
+cube()
 
 
 # 中等  通过率：28.46%  时间限制：1秒  空间限制：32M

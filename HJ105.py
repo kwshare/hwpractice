@@ -1,6 +1,27 @@
 # HJ105 记负均正II
 
 
+# 这个题需要注意对文件结束的处理。以往的题目都是有确定数量的输入，可以在try里按既定数量获取input()，这一题是不定长的输出，只能判断文件结束符。方法见except
+
+p_l = []
+n_l = []
+
+while True:
+    try:
+        i = int(input())
+        if i >= 0:
+            p_l.append(i)
+        else:
+            n_l.append(i)
+    # except EOFError:  ###重点重点重点，在python中对文件结束符的判断，可以用except EOFError来获取。没有碰到结束符之前，只记录输入，碰到结束符之后，处理输出。
+    except:
+        print(len(n_l))
+        if len(p_l) > 0:
+            print(round(sum(p_l) / len(p_l), 1))
+        else:
+            print('0.0')
+        break
+
 # 较难
 # 通过率：26.93 % 时间限制：1 秒 空间限制：32 M
 # 知识点 数组 思维

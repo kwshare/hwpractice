@@ -1,28 +1,63 @@
 # HJ25 数据分类处理
 
+while True:
+    try:
+        I = input()
+        I = I.split()
+        R = input()
+        R = R.split()
+        I_len = int(I[0]) #I[0]为I的数的个数
+        I.remove(I[0]) #从I中去掉I[0]
+        R_len = int(R[0]) #R的操作同上
+        R.remove(R[0])
+        R = list(set(R)) #R去重
+        for i in range(len(R)): #先将R转为int类再排序，不能按str排序
+            R[i] = int(R[i])
+        R.sort() #R排序
+        for i in range(len(R)):
+            R[i] = str(R[i]) #再转为str（为了方便后续的操作）
+        #print(R)
+        s = []
+
+        for i in range(len(R)):#判断R中的每个数
+            num = 0
+            for j in range(len(I)): #先判断I中有多少个包含R【i】的数
+                if(R[i] in I[j]):
+                    num += 1
+            if(num == 0):#如果没有则直接跳过
+                continue
+            s.append(R[i]) #把R[i]放入S
+            s.append(str(num))#把计数放入S
+            for j in range(len(I)):
+                if(R[i] in I[j]):
+                    s.append(str(j))#把I中每个包含R[i]的位置和数分别放入S
+                    s.append(I[j])
+        s.insert(0,str(len(s))) #将S中有多少个数放在S的最开始
+        print(' '.join(s)) #再将其中的数据合并成字符串
+    except:
+        break
 
 
 
 '''
 较难  通过率：22.89%  时间限制：1秒  空间限制：32M
-知识点
-排序
-模拟
-哈希
+
+知识点 排序  模拟  哈希
+
 warning 校招时部分企业笔试将禁止编程题跳出页面，为提前适应，练习时请使用在线自测，而非本地IDE。
+
 描述
 信息社会，有海量的数据需要分析处理，比如公安局分析身份证号码、 QQ 用户、手机号码、银行帐号等信息及活动记录。
 
 采集输入大数据和分类规则，通过大数据分类处理程序，将大数据分类输出。
 
-数据范围：1 \le I,R \le 100 \1≤I,R≤100  ，输入的整数大小满足 0 \le val \le 2^{31}-1\0≤val≤2
-31
- −1
+数据范围：1≤I,R≤100  ，输入的整数大小满足 0 <= val <= 2^{31}-1
+
 输入描述：
-﻿一组输入整数序列I和一组规则整数序列R，I和R序列的第一个整数为序列的个数（个数不包含第一个整数）；整数范围为0~(2^31)-1，序列个数不限
+一组输入整数序列I和一组规则整数序列R，I和R序列的第一个整数为序列的个数（个数不包含第一个整数）；整数范围为0~(2^31)-1，序列个数不限
 
 输出描述：
-﻿从R依次中取出R<i>，对I进行处理，找到满足条件的I：
+从R依次中取出R<i>，对I进行处理，找到满足条件的I：
 
 I整数对应的数字需要连续包含R<i>对应的数字。比如R<i>为23，I为231，那么I包含了R<i>，条件满足 。
 
