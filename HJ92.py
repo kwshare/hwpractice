@@ -1,6 +1,23 @@
 # HJ92 在字符串中找出连续最长的数字串
 
-
+while True:
+    try:
+        string = input()
+        for i in string:
+            if not i.isdigit():
+                string = string.replace(i, ' ')
+        string = string.split()
+        max_f = 0
+        res = ''
+        for i in string:
+            if len(i) > max_f:
+                max_f = len(i)
+        for i in string:
+            if len(i) == max_f:
+                res = res + i
+        print(str(res)+','+str(max_f))
+    except:
+        break
 
 
 '''

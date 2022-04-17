@@ -2,6 +2,30 @@
 
 
 
+def func(lst,num):
+    stu_lst = [1]*num
+    for i in range(1,num):
+        for j in range(i):
+            if lst[i]>lst[j]:
+                stu_lst[i] = max(stu_lst[j]+1,stu_lst[i])
+    return stu_lst
+
+def main(num,lst):
+    left = func(lst,num)
+    right = func(lst[::-1],num)
+    li = []
+    for i in range(num):
+        li.append(left[i]+right[~i]-1)
+    print(num-max(li))
+while True:
+    try:
+        num = int(input())
+        lst = [int(i) for i in input().split()]
+        main(num,lst)
+    except:
+        break
+# python会超时
+
 
 
 '''

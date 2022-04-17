@@ -1,11 +1,34 @@
 # HJ69 矩阵乘法
 
 
+# NB, 一次性通过。
+# 注意点：输入矩阵的建立，行录入的时候还是要注意末尾空格，直接用input().split()分隔，就可以把空格去掉了，直接用map(int, )，不用单独去处理末尾空格。
+# 如果用input().split(' '),则末尾的空格会被分隔成一个‘’字符，没法直接map(int,)
 
-
-
-
-
+while True:
+    try:
+        x = int(input())
+        y = int(input())
+        z = int(input())
+        A = []
+        B = []
+        for i in range(x):
+            A.append(list(map(int, input().split())))
+        for j in range(y):
+            B.append(list(map(int, input().split())))
+        # 输入录入后，开始计算，先初始化一个二维数组，初始值为0
+        R = [[0 for k in range(z)] for i in range(x)]
+        for i in range(x):
+            for k in range(z):
+                for j in range(y):  # 计算每个输出单元格的数据，A行与B列的乘积，长度为y
+                    R[i][k] += A[i][j] * B[j][k]
+        # 按行输出
+        for i in range(x):
+            for k in range(z):
+                print(R[i][k], end=' ')
+            print('')
+    except:
+        break
 
 '''
 中等  通过率：45.44%  时间限制：1秒  空间限制：32M

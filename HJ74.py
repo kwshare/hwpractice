@@ -3,6 +3,24 @@
 
 
 
+while True:
+    try:
+        str1=str(input())
+        str1=str1.replace(' ','\n')
+        e = ''
+        flag = False
+        for i in str1:
+            if i == '"':  # 经过一次引号则拨动一次开关
+                flag = not flag
+            elif flag == True and i == '\n':
+                e += ' '
+            else:
+                e += i
+        b = e.count('\n') + 1
+        print(b)
+        print(e)
+    except:
+        break
 
 
 

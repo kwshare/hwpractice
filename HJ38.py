@@ -6,6 +6,17 @@
 
 
 
+while True:
+    try:
+        H = int(input())
+        S = 0 - H
+        for i in range(5):
+            S = S + H * 2
+            H = H/2
+        print(float(S))
+        print(float(H))
+    except:
+        break
 
 
 '''

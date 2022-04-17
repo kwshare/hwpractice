@@ -3,6 +3,22 @@
 
 
 
+while True:
+    try:
+    #只有存在不存在出现次数为1的字符这两种情况
+        a = input()
+        d = {}
+        res = []
+        for i in a:
+            d[i] = a.count(i)
+            if d[i] == 1:
+                res.append(i)
+        if min(d.values())>1:#所有出现的字符出现次数均大于1，需要返回-1
+            print('-1')
+        else:#存在出现次数为1的字符，返回最开始出现的那个
+            print(res[0])
+    except:
+        break
 
 
 

@@ -1,7 +1,17 @@
 # HJ103 Redraiment的走法
 
-
-
+while True:
+    try:
+        m = int(input())
+        n = list(map(int, input().split()))
+        d = [1] * m
+        for i in range(m):
+            for j in range(i):
+                if n[i] > n[j]:
+                    d[i] = max(1 + d[j], d[i])
+        print(max(d))
+    except:
+        break
 
 # 中等  通过率：28.86%  时间限制：1秒  空间限制：32M
 

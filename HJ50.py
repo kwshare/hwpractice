@@ -3,6 +3,16 @@
 
 
 
+while True:
+    try:
+        s=input()
+        s=s.replace('{', '(')
+        s=s.replace("}",")")
+        s=s.replace("[","(")
+        s=s.replace("]",")")
+        print(int(eval(s)))
+    except:
+        break
 
 
 

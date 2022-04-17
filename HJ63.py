@@ -4,6 +4,20 @@
 
 
 
+while True:
+    try:
+        DNA = input()
+        length = int(input())
+        max_counts = 0
+        max_DNA = []
+        for i in range(len(DNA)-length+1):
+            GC_counts = DNA.count('G',i,i+length) + DNA.count('C',i,i+length)
+            if GC_counts > max_counts:
+                max_counts = GC_counts
+                max_DNA = DNA[i:i+length]
+        print(max_DNA)
+    except:
+        break
 
 
 

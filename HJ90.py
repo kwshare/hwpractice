@@ -1,7 +1,26 @@
 # HJ90 合法IP
 
 
-
+while True:
+    try:
+        string = input().split('.')
+        count = 0
+        if len(string) != 4:
+            print('NO')
+            continue
+        for i in string:
+            if not i.isdigit():
+                print("NO")
+                continue
+            elif int(i) > 255 or (i.startswith('0') and len(i) > 1):
+                print('NO')
+                continue
+            else:
+                count += 1
+        if count == 4:
+            print("YES")
+    except:
+        break
 
 
 '''

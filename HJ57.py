@@ -2,6 +2,16 @@
 
 
 
+while True:
+    try:
+        n1 = int(input())
+        n2 = int(input())
+        print(n1+n2)		# 直接输出整型数字相加之和的结果
+    except:
+        break
+
+
+
 
 
 

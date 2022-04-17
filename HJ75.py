@@ -3,6 +3,19 @@
 
 
 
+while True:
+    try:
+        a, b = input(), input()
+        if len(a) > len(b):
+            a, b = b, a # a存短，b存长
+        Max = 0
+        for i in range(len(a)):
+            for j in range(i, len(a)):
+                if a[i:j+1] in b and j + 1 - i > Max:
+                    Max = j + 1 - i
+        print(Max)
+    except:
+        break
 
 
 

@@ -1,6 +1,23 @@
 # HJ82 将真分数分解为埃及分数
 
 
+while True:
+    try:
+        a,b = map(int,input().split('/'))
+        a = a * 10
+        b = b * 10
+        res = []
+        while a:
+            for i in range(a,0,-1):
+                if(b % i == 0):
+                    res.append('1' + '/' + str(int(b / i)))
+                    a = a - i
+                    break
+        print('+'.join(res))
+    except:
+        break
+
+
 
 
 

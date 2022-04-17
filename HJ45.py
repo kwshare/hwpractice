@@ -4,6 +4,30 @@
 
 
 
+while True:
+    try:
+        #获取输入的单词数量
+        N = int(input())
+        while N:
+            #获取输入的单词
+            data = input()
+            #去重存入字典
+            d = {}
+            for word in data:
+                if word not in d:
+                    d[word] = 1
+                else:
+                    d[word] = d[word] + 1
+            d1 = sorted(d.values() ,reverse=True)
+            ans = 0
+            m = 0
+            for word in d1:
+                ans = ans + (26-m)*word
+                m = m + 1
+            print(ans)
+            N = N - 1
+    except:
+        break
 
 
 

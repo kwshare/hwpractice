@@ -1,12 +1,29 @@
 # HJ36 字符串加密
 
 
+letterlst = []
+for i in range(26):
+    letterlst.append(chr((ord("a") + i)))
 
-
-
-
-
-
+while True:
+    try:
+        key, encodestr = input(), input()
+        newkey = []
+        for str1 in key:
+            if str1 not in newkey:
+                newkey.append(str1)
+        for str1 in letterlst:
+            if str1 not in newkey:
+                newkey.append(str1)
+        encodeDic = {}
+        for i in range(len(newkey)):
+            encodeDic[letterlst[i]] = newkey[i]
+        newencodestr = ""
+        for str1 in encodestr:
+            newencodestr += encodeDic[str1]
+        print(newencodestr)
+    except:
+        break
 
 '''
 中等  通过率：40.99%  时间限制：1秒  空间限制：32M
