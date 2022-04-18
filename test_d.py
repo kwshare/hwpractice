@@ -24,8 +24,56 @@
 # print(z1)
 # print(z2)
 
-print( "round(80.23456, 2) : ", round(80.23456, 2))
-print( "round(100.000056, 5) : ", round(100.000056, 5))
-print( "round(100.000056, 3) : ", round(100.000056, 3))
-print( "round(-100.000056, 3) : ", round(-100.000056, 3))
-print( "round(-100.000056, 5) : ", round(-100.000056, 5))
+# print( "round(80.23456, 2) : ", round(80.23456, 2))
+# print( "round(100.000056, 5) : ", round(100.000056, 5))
+# print( "round(100.000056, 3) : ", round(100.000056, 3))
+# print( "round(-100.000056, 3) : ", round(-100.000056, 3))
+# print( "round(-100.000056, 5) : ", round(-100.000056, 5))
+
+
+# while True:
+#     try:
+#         n = int(input())
+#         mystr = list(map(str, input().strip().split()))
+#         mystr.sort()
+#         print(' '.join(mystr))
+#     except:
+#         break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
