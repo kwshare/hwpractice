@@ -27,14 +27,14 @@ def s(x, y):
 def d(x, y):
     return 3 * x + y + 2
 
-
+# 查找x
 def fx(m, index):
     for i in range(index - 1, 0, -1):
         if m[i] == "#" or m[i] == "$":
             return int(m[i + 1:index]), i + 1
     return int(m[:index]), 0
 
-
+# 查找y
 def fy(m, index):
     for i in range(index + 1, len(m)):
         if m[i] == "#" or m[i] == "$":

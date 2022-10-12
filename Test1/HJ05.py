@@ -1,15 +1,14 @@
 # HJ5 进制转换
 
-while True:
-    try:
-        s=input()
-        print(int(s,16))
-    except:
-        break
+# while True:
+#     try:
+#         s=input()
+#         print(int(s,16))
+#     except:
+#         break
 
 # 简单  通过率：33.29%  时间限制：1秒  空间限制：32M
-# 知识点
-# 字符串
+# 知识点 字符串
 
 # warning 校招时部分企业笔试将禁止编程题跳出页面，为提前适应，练习时请使用在线自测，而非本地IDE。
 
@@ -30,3 +29,12 @@ while True:
 
 # 输出：
 # 170
+
+while True:
+    try:
+        s = input()
+        s1 = s[3:]
+        s3 = int(s1, 16)
+        print(s3)
+    except:
+        break

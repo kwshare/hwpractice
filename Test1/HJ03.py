@@ -1,23 +1,22 @@
 # HJ3 明明的随机数
 
-while True:
-    try:
-        n = input()
-        lst = []
-        for i in range(int(n)):
-            lst.append(int(input()))
-        uniq=set(lst)
-        lst=list(uniq)
-        lst.sort()
-        for i in lst:
-            print(i)
-    except:
-        break
+# while True:
+#     try:
+#         n = input()
+#         lst = []
+#         for i in range(int(n)):
+#             lst.append(int(input()))
+#         uniq=set(lst)
+#         lst=list(uniq)
+#         lst.sort()
+#         for i in lst:
+#             print(i)
+#     except:
+#         break
 
 
 # 较难  通过率：21.90%  时间限制：1秒  空间限制：32M
-# 知识点
-# 数组
+# 知识点 数组
 
 
 # 描述:
@@ -30,7 +29,7 @@ while True:
 
 # 输出描述：
 # 输出多行，表示输入数据处理后的结果
-#
+
 # 示例1
 # 输入：
 # 3
@@ -51,3 +50,16 @@ while True:
 # 所以样例的输出为：
 # 1
 # 2
+
+while True:
+    try:
+        n = int(input())
+        l = []
+        for i in range(n):
+            l.append(int(input()))
+        l2 = set(l)
+        l3 = sorted(l2)
+        for i in l3:
+            print(i)
+    except:
+        break
